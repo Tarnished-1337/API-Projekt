@@ -8,7 +8,7 @@ import webview
 client_id = "7a68e9b91f494217ae1c9237863a587b"
 client_secret = "922dcf0d518043d09df49b3fe2ad3ea0"
 
-artist_search = "yes"
+artist_search = "[]"
 
 def get_token():
     auth_string = client_id + ":" + client_secret
@@ -33,11 +33,19 @@ def get_auth_header(token):
 def search_for_artists(artist_name):
     token = get_token()
     headers = get_auth_header(token)
-    url = "https://api.spotify.com/v1/search/"
-    query = f"?q={artist_name}&type=artist&limit=5"
-    result = requests.get(url + query, headers=headers)
-    items = result.json()["artists"]["items"]
-    return items[0:5] if items else None
+    url = "https://api.spotify.com/v1/search"
+    params = {"q": artist_name, "type": "artist", "limit": 5}
+
+    result = requests.get(url, headers=headers, params=params)
+
+    try:
+        data = result.json()
+    except ValueError:
+        return []  # invalid JSON → treat as no results
+
+    items = data.get("artists", {}).get("items", [])
+    return items[:5] if items else []
+
 
 
 
@@ -49,4 +57,3 @@ from frontend import Api, make_html
 api = Api(search_for_artists)
 webview.create_window("Spotify App", "frontend.html", js_api=api)
 webview.start()
-

@@ -28,4 +28,3 @@ class Api:
         if not result:
             return []
         return [a["name"] for a in result]
-
