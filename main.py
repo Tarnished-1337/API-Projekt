@@ -46,8 +46,7 @@ result = search_for_artists(artist_search)
 
 from frontend import Api, make_html
 
-html = make_html(result)
 api = Api(search_for_artists)
-webview.create_window("Spotify App", html=html, js_api=api)
+webview.create_window("Spotify App", "frontend.html", js_api=api)
 webview.start()
 
