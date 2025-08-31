@@ -1,14 +1,32 @@
-function searchArtist() {
-    const input = document.getElementById('artistInput');
-    const artist = input.value; // sets the value of artist to whatever the user types into the input field
 
-    document.getElementById('results').innerHTML = "<p>Searching...</p>";
+// fake loading screen B)
+// after intro ends
+window.onload = () => {
+    // simulate loading / intro
+    setTimeout(() => {
+        document.getElementById("intro").style.display = "none";
+        document.getElementById("main").style.display = "block";
+        document.getElementById("footer").style.display = "block"; 
+    }, 2000); // 2 seconds
+};
+
+
+
+function searchArtist() {
+
+    // sets the value of artist to whatever the user types into the input field
+    const input = document.getElementById('artistInput');
+    const artist = input.value; 
+
+
+    document.getElementById('results').innerHTML = "<p style='text-align:center;'>Searching...</p>";
     input.disabled = true; // prevent typing while searching to prevent simultaneous searches
 
-    // "sends" the artist variable value to the python backend
-    // python then searches spotify for that artist and returns the list of results 
-    // once the results are returned, the "then" function updates the page with the search results
+    // send the artist variable to the Python backend via PyWebView
+    // pywebview calls the "search_artist" function in the Api class
+    // once the results are returned, the ".then()" callback handles them
     window.pywebview.api.search_artist(artist).then(result => { 
+        // result is the list returned by Python (artist names + URLs)
 
         input.disabled = false; // re-enable input
 
@@ -19,16 +37,29 @@ function searchArtist() {
 
         }
         // for each artist in the result list, add a list item with its index and name
-        let html = "<ul>";
-        result.forEach((name, i) => {
-            html += `<li>${i+1}. ${name}</li>`;
-            
-        });
-        // replace the contents of the "results" div with the complete unordered list
-        html += "</ul>";
-        document.getElementById('results').innerHTML = html;
+        let html = "<center><h2>Results</h2><br><ul></center>";
+        result.forEach((artist, i) => {
+        html += `<li class="artist-row">
+                    <span class="artist-name">${i+1}. ${artist.name}</span>
+                    <button class="button" onclick="window.open('${artist.url}', '_blank')">Open</button>
+                </li>`;
+});
+html += "</ul>";
+document.getElementById('results').innerHTML = html;
         
     });
 }
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+    const modeButton = document.getElementById("modeButton");
+    let isDark = false; // initial state
+
+    modeButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+        isDark = !isDark;
+    });
+});
 
 

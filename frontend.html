@@ -1,16 +1,34 @@
 <!DOCTYPE html>
+
+
 <html>
 <head>
     <title>Spotify App</title>
     <script src="frontend.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Search for an Artist</h1>
-    <input type="text" id="artistInput" placeholder="Enter artist name"/> 
-    <!--when this button is clicked, run the JS function searchArtist()-->
-    <button onclick="searchArtist()">Search</button> 
-    <!--this div is empty until results are received--> 
-    <div id="results"></div>
-
+    <div class="content">
+        <div class="header">
+                <!-- Intro screen -->
+            <div id="intro" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#111;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                <h1>Welcome to Spotify Search</h1>
+                <p>Loading...</p>
+            </div>
+        </div>
+        <div id="main" style="display: none;">
+                <h1>Search for an Artist</h1>
+                <center>
+                    <input type="text" id="artistInput" placeholder="Enter artist name"/>
+                    <!--when this button is clicked, run the JS function searchArtist()-->
+                    <button class="button" onclick="searchArtist()">Search</button> 
+                </center> 
+                <!--this div is empty until results are received--> 
+                <div id="results"></div> 
+        </div>
+        <div id="footer" style="display: none;">   
+            <button id="modeButton">Mode</button>
+        </div>  
+    </div>
 </body>
 </html>

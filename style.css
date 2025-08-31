@@ -1,0 +1,86 @@
+body {
+    display: flex;             
+    justify-content: center;   
+    height: 100vh;             
+    margin: 0;
+    font-family:cursive;
+}
+#footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#modeButton {
+    background-color: black;
+    color: white;
+    padding: 10px 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    transition: 0.4s;
+}
+
+#modeButton:hover {
+    background-color: gray;
+    color: white;
+    padding: 12px 12px; 
+}
+
+body.dark-mode #modeButton {
+    background-color: gray;
+    color: white;
+}
+
+body.dark-mode #modeButton:hover {
+    background-color: black;
+    color: white;
+}
+
+
+body {
+    background-color: white;
+    color: black;
+}
+
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.button {
+    background-color: black;
+    color: white;
+    padding: 10px, 10px;
+}
+
+.button:hover {
+    background-color: gray;
+    color: black;
+    padding: 12px, 12px;
+}
+
+body.dark-mode .button {
+    background-color: gray;
+    color: black;
+}
+
+body.dark-mode button:hover {
+    background-color: black;
+    color: white;
+    padding: 12px, 12px;
+}
+
+.artist-row {
+    display: flex;            /* put children in a row */
+    justify-content: space-between;  /* name left, button right */
+    align-items: center;      /* vertical alignment */
+    margin-bottom: 5px;       /* spacing between rows */
+}
+
+.artist-name {
+    flex: 1;                  /* take up remaining space so button stays aligned */
+}
